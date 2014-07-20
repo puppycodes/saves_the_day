@@ -63,7 +63,7 @@ python setup.py build && python setup.py install && ldconfig && cd ~
 
 #administrative stuff
 setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
-useradd -G vboxusers cuckoo-vbox 
+useradd -m -G vboxusers cuckoo-vbox 
 VBoxManage hostonlyif create && VBoxManage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1
 
 #grab newest cuckoo from GIT
