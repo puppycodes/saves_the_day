@@ -68,10 +68,13 @@ VBoxManage hostonlyif create && VBoxManage hostonlyif ipconfig vboxnet0 --ip 192
 
 #grab newest cuckoo from GIT
 git clone https://github.com/cuckoobox/cuckoo.git /opt/cuckoo
-chown -R cuckoo /opt/cuckoo
+
+#grab all the newest community sigs
+su cuckoo && python /opt/cuckoo/utils/community.py -af
 
 #cleaning up
 rm -Rf /tmp/installers/
 
-#grab all the newest community sigs
-su cuckoo && python /opt/cuckoo/utils/community.py -af
+
+#change ownership
+chown -R cuckoo /opt/cuckoo
