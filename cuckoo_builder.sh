@@ -18,7 +18,7 @@ echo "deb http://www.inetsim.org/debian/ binary/" | tee -a /etc/apt/sources.list
 wget -q http://www.inetsim.org/inetsim.org-archive-signing-key.asc -O- | apt-key add - 
 
 #make sure we are working with newest packages
-apt-get update -y && apt-get upgrade -y
+apt-get update && apt-get upgrade -y
 
 #install all necessary packages (pre-reques for Cuckoo install)
 apt-get install -y build-essential python-pip git automake python-dpkt python-jinja2 python-magic python-pymongo python-gridfs python-libvirt python-bottle python-pefile python-chardet python python-dev tcpdump libcap2-bin libtool python-sqlalchemy python-bson mongodb-server libxml2-dev libxslt1-dev zlibc zlib1g zlib1g-dev libssl-dev libffi-dev flex byacc inetsim virtualbox
@@ -69,12 +69,12 @@ VBoxManage hostonlyif create && VBoxManage hostonlyif ipconfig vboxnet0 --ip 192
 #grab newest cuckoo from GIT
 git clone https://github.com/cuckoobox/cuckoo.git /opt/cuckoo
 
-#grab all the newest community sigs
-su cuckoo && python /opt/cuckoo/utils/community.py -af
-
 #cleaning up
 rm -Rf /tmp/installers/
 
-
-#change ownership
+#switch up ownership
 chown -R cuckoo /opt/cuckoo
+
+#grab all the newest community sigs
+cd /opt/cuckoo/utils
+su cuckoo -c "python community.py -af"
